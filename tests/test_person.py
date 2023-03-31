@@ -1,5 +1,7 @@
 import pytest
 from viewing_party.person import Person
+from viewing_party.movie import Movie
+
 
 def test_create_person():
     # Arrange / Act
@@ -43,3 +45,27 @@ def test_no_duplicate_friends_added():
 
     # Assert
     assert moyo.friends == ["Sarah"]
+
+def test_add_movie_to_watchlist():
+    # Arrange
+    super_mario_bros = Movie("Super Mario Bros", "Comedy", 0)
+    jasmine = Person("Jasmine", "Mikayla")
+
+    # Act
+    jasmine.add_movie(super_mario_bros)
+
+    # Assert
+    assert jasmine.watchlist == [super_mario_bros]
+
+def test_removed_movie_from_watchlist_and_add_to_watched(): 
+    # Arrange 
+    super_mario_bros = Movie("Super Mario Bros", "Comedy", 0)
+    jasmine = Person("Jasmine", "Mikayla")
+
+    # Act
+    jasmine.add_movie(super_mario_bros)
+    jasmine.watch_movie(super_mario_bros)
+
+    # Assert
+    assert len(jasmine.watchlist) == 0
+    assert jasmine.watched == [super_mario_bros]
